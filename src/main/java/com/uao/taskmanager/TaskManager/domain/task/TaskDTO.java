@@ -21,8 +21,12 @@ public class TaskDTO {
 
   private Long id;
 
+
   @NotBlank
-  @Length(min = 1, max = 50)
+  @Length(min = 5, max = 50)
+  private String name;
+
+  @Length(max = 1500)
   private String description;
 
   @NotNull

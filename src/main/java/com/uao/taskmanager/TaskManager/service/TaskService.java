@@ -25,9 +25,7 @@ public class TaskService {
 
   }
   public TaskDTO createTask(TaskDTO taskDTO) {
-    if(taskDTO.getDescription().isEmpty()) {
-      throw new IllegalArgumentException("Incorrect parameters");
-    }
+
     var task = taskMapper.buildEntity(taskDTO);
     taskRepository.save(task);
     return taskMapper.buildDTO(task);
