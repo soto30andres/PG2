@@ -36,6 +36,7 @@ public class TaskService {
 
     var task = taskRepository.findById(taskId).orElseThrow(() -> new InvalidParameterException("Task does not exist"));
 
+    task.setName(taskDTO.getName());
     task.setDescription(taskDTO.getDescription());
     task.setState(taskDTO.getState());
     taskRepository.save(task);
