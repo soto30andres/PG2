@@ -37,6 +37,10 @@ public class Task {
   @Lob
   private String description;
 
+  @ManyToOne
+  @JoinColumn(name = "_user")
+  private User user;
+
   @Enumerated(EnumType.STRING)
   @Column(name="state")
   private State state;
