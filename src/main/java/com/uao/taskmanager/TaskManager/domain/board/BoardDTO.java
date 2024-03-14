@@ -1,10 +1,7 @@
-package com.uao.taskmanager.TaskManager.domain.task;
+package com.uao.taskmanager.TaskManager.domain.board;
 
 import com.uao.taskmanager.TaskManager.entity.State;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,22 +13,15 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TaskDTO {
-
+public class BoardDTO {
 
   private Long id;
 
-
   @NotBlank
-  @Length(min = 5, max = 50)
+  @Length(min = 1, max = 25)
   private String name;
 
-  @Length(max = 1500)
+  @Length(max = 500)
   private String description;
 
-  @NotNull
-  private State state;
-
-  @NotNull
-  private Long boardId;
 }
