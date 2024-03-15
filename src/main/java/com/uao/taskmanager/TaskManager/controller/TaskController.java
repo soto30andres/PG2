@@ -22,8 +22,8 @@ public class TaskController {
   private TaskService taskService;
 
   @GetMapping
-  public ResponseEntity<List<TaskDTO>> findTasks() {
-    return ResponseEntity.ok(taskService.findTasks());
+  public ResponseEntity<List<TaskDTO>> findTasks(@Valid @RequestParam @NotEmpty  Long boardId) {
+    return ResponseEntity.ok(taskService.findTasks(boardId));
   }
 
   @PostMapping

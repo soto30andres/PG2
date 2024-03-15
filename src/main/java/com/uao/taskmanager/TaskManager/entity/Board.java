@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,11 +21,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_task")
-public class Task {
+@Table(name = "_board")
+public class Board {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column
   private Long id;
 
@@ -41,10 +40,6 @@ public class Task {
   @ManyToOne
   @JoinColumn(name = "_user")
   private User user;
-
-  @ManyToOne
-  @JoinColumn(name = "_board")
-  private Board board;
 
   @Enumerated(EnumType.STRING)
   @Column(name="state")

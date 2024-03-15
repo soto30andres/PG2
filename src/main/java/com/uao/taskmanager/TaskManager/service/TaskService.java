@@ -2,6 +2,7 @@ package com.uao.taskmanager.TaskManager.service;
 
 import com.uao.taskmanager.TaskManager.domain.task.TaskDTO;
 import com.uao.taskmanager.TaskManager.mapper.TaskMapper;
+import com.uao.taskmanager.TaskManager.repository.BoardRepository;
 import com.uao.taskmanager.TaskManager.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,25 @@ public class TaskService {
   private TaskRepository taskRepository;
 
   @Autowired
+  private BoardRepository boardRepository;
+
+  @Autowired
   private AuthenticationService authenticationService;
 
-  public List<TaskDTO> findTasks() {
+  public List<TaskDTO> findTasks(Long boardId) {
 
     var user = authenticationService.getCurrentuser();
 
-    return taskRepository.findByUser(user).stream().map(taskMapper::buildDTO).toList();
+    return taskRepository.findByUserAndBoard(user, boardId).stream().map(taskMapper::buildDTO).toList();
 
   }
   public TaskDTO createTask(TaskDTO taskDTO) {
 
     var user = authenticationService.getCurrentuser();
-
+    var board = boardRepository.findByIdAndUser(taskDTO.getBoardId(), user).orElseThrow(() -> new InvalidParameterException("Board not found."));
     var task = taskMapper.buildEntity(taskDTO);
     task.setUser(user);
+    task.setBoard(board);
     taskRepository.save(task);
     return taskMapper.buildDTO(task);
 
